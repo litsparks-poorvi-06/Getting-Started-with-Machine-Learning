@@ -28,13 +28,21 @@ percentage=(count*100)/df.shape[0]
 print(percentage) # means number of chances if you are wining toss then you will win the match '''
 
 #how do teams win? run or wickets
-sns.countplot(x=df['won_by'])
+'''sns.countplot(x=df['won_by'])
 plt.show()
 count1=df['player_of_the_match'].head(10)
 print(count1)
 sns.barplot(y=count1.values,x=count1.index)
-plt.show()
+plt.show()'''
 
 #Top Scorer using groupby
-high=df.groupby('top_scorer')['highscore'].sum().sort_values(ascending=False).head(2) #means we are gruoupby top scorers by highscore and we will sum the highscore means per player got how many scores and sorting by ascending order
-print(high)
+'''high=df.groupby('top_scorer')['highscore'].sum().sort_values(ascending=False).head(2) #means we are gruoupby top scorers by highscore and we will sum the highscore means per player got how many scores and sorting by ascending order
+print(high)'''
+
+#bestbowler
+df['highest_wicket'] = df['best_bowling_figure'].apply(lambda x: x.split('--')[0])
+df['highest_wicket']=df['highest_wicket'].astype(int)
+top_bowler=df.groupby('best_bowling')['highest_wicket'].sum().sort_values(ascending=False).head(10)
+print(top_bowler)
+top_bowler.plot(kind='bar')
+plt.show()
